@@ -1,0 +1,177 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    background-color: #000;
+    cursor: url('assets/hearts-cursor.png'), auto;
+}
+
+/* Gradient Background */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff8A00, #D500FF, #FF4081);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    z-index: -3;
+}
+
+@keyframes gradientAnimation {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+/* Stars background */
+.stars-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('assets/stars.png') repeat;
+    background-size: cover;
+    opacity: 0;
+    z-index: -2;
+    transition: opacity 2s ease;
+}
+
+/* Story Sections */
+.story-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    scroll-snap-align: start;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
+    backdrop-filter: blur(10px);
+    background: rgba(0,0,0,0.3);
+}
+
+.story-section.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.story-section.faded {
+    opacity: 0;
+    transform: translateY(-40px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+/* Story Text */
+.story-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+    max-width: 80%;
+    color: white;
+    text-shadow:
+        0 0 10px rgba(255,64,129,0.8),
+        0 0 20px rgba(213,0,255,0.6),
+        0 0 30px rgba(255,138,0,0.5);
+}
+
+/* Floating Hearts */
+.hearts-container {
+    position: fixed;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    bottom: 0;
+    font-size: 20px;
+    animation: floatUp 8s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0.7; }
+    100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+}
+
+/* Valentine Button */
+.valentine-container {
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+#valentine-btn {
+    padding: 20px 40px;
+    font-size: 1.8rem;
+    background: linear-gradient(45deg, #ff8A00, #D500FF);
+    border: none;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255,64,129,0.7);
+    animation: popIn 1s ease forwards;
+    position: relative;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255,64,129,0.7); }
+    50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(255,138,0,0.9); }
+}
+
+#valentine-btn.pulse-sparkle {
+    animation: pulse 2s infinite, sparkle 1.5s infinite;
+}
+
+/* Heart Explosion */
+.explosion-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+    z-index: 90;
+}
+
+.explosion-heart {
+    position: absolute;
+    font-size: 20px;
+    animation: explode 2s forwards;
+}
+
+@keyframes explode {
+    0% { transform: translate(0,0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(2); opacity: 0; }
+}
+
+#valentine-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 50px rgba(255,138,0,1);
+}
+
